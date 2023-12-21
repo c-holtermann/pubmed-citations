@@ -39,16 +39,16 @@ def parse_templates(file_path):
     with open(file_path, 'r', encoding='utf-8') as file:
         content = file.read()
 
-    # The regular expression pattern for the "undefined" key
-    undefined_pattern = re.compile(r'\bundefined\s*=\s*(\d+)\b')
+    # The regular expression pattern for the "PMID" key
+    pmid_pattern = re.compile(r'\bPMID\s*=\s*(\d+)\b')
 
     # Find matches in the text
-    matches = undefined_pattern.findall(content)
+    matches = pmid_pattern.findall(content)
 
     # Extract the content between {{ and }}
     templates_content = re.findall(r'{{(.*?)}}', content, re.DOTALL)
 
-    # Create a dictionary with the "undefined" key and its corresponding value
+    # Create a dictionary with the "PMID" key and its corresponding value
     result_dict = {str(matches[i]): "{{"+templates_content[i].strip()+"}}" for i in range(len(matches))}
 
     return result_dict
